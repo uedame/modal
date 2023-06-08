@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://yubinbango.github.io/yubinbango/yubinbango.js"
+      charset="UTF-8"
+    ></script>
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <h1>モーダルウィンドウを作る、dialogタグを使えば簡単</h1>
+    <p>dialogタグはJSで標準用意されているので、特に準備なし</p>
+    <p>クリックボタン押下でモーダルウィンドウ出現</p>
+    <button id="btn">クリック</button>
+    <dialog id="dialog">
+      <div>
+        <p>モーダルです</p>
+        <button id="modalBtn">閉じる</button>
+        <form action="">
+          <input type="text" />
+          <button type="submit">送信</button>
+          <!-- ここを追加 -->
+          <button type="submit" formmethod="dialog">取り消し</button>
+        </form>
+      </div>
+    </dialog>
+
+    <p>
+      下の赤枠内をクリックすると、クリックした座標をコンソールで取得できる。
+    </p>
+    <div id="posi"></div>
+
+    <script>
+      const btn = document.querySelector("#btn");
+      const modalBtn = document.querySelector("#modalBtn");
+      const dialog = document.querySelector("#dialog");
+
+      // モーダルを表示する
+      btn.addEventListener("click", () => {
+        dialog.showModal();
+      });
+
+      // モーダルを非表示にする
+      modalBtn.addEventListener("click", () => {
+        dialog.close();
+      });
+
+      // ここを追加
+      dialog.addEventListener("click", (e) => {
+        const dialogPosition = dialog.getBoundingClientRect();
+        if (
+          e.clientX < dialogPosition.left ||
+          e.clientX > dialogPosition.right ||
+          e.clientY < dialogPosition.top ||
+          e.clientY > dialogPosition.bottom
+        ) {
+          dialog.close();
+        }
+      });
+
+      const posi = document.getElementById("posi");
+      posi.addEventListener("click", (e) => {
+        console.log(e.clientX);
+        console.log(e.clientY);
+        // console.log(e);
+      });
+    </script>
+  </body>
+</html>

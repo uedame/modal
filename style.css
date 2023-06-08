@@ -1,0 +1,16 @@
+#dialog {
+  border: none;
+  border-radius: 8px;
+  width: 200px;
+  height: 200px;
+}
+/* ここを追加 */
+#dialog::backdrop {
+  background: #2bc7fb;
+}
+
+#posi{
+	width: 500px;
+	height: 600px;
+	background-color: red;
+}
